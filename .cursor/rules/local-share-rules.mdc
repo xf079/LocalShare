@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+1.项目node版本使用24
+2.项目使用pnpm管理
+3.所有引用都是用@别名
+4.项目技术使用react19+ tailwindcss + shadcn/ui组件库 + zustand状态管理
