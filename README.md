@@ -1,4 +1,22 @@
-# React + TypeScript + Vite
+# Quick Direct
+
+A modern peer-to-peer communication application built with React, TypeScript, and WebRTC technology. Quick Direct enables direct file sharing and real-time chat between users without requiring a central server.
+
+## Features
+
+- 🚀 Direct P2P communication using WebRTC
+- 💬 Real-time chat functionality
+- 📁 File sharing capabilities
+- 🔒 Secure peer-to-peer connections
+- 🎨 Modern UI built with React and Tailwind CSS
+
+## Tech Stack
+
+- React 19 with TypeScript
+- Vite for fast development
+- WebRTC for peer-to-peer communication
+- Tailwind CSS for styling
+- Radix UI components
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
