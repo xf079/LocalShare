@@ -17,6 +17,7 @@ import { Route as AuthorizeSignUpImport } from './routes/_authorize/sign-up'
 import { Route as AuthorizeSignInImport } from './routes/_authorize/sign-in'
 import { Route as AuthorizeForgotPasswordImport } from './routes/_authorize/forgot-password'
 import { Route as AppRoomIndexImport } from './routes/_app/room/index'
+import { Route as AppRoomRoomIdImport } from './routes/_app/room/$roomId'
 
 // Create/Update Routes
 
@@ -51,6 +52,12 @@ const AuthorizeForgotPasswordRoute = AuthorizeForgotPasswordImport.update({
 const AppRoomIndexRoute = AppRoomIndexImport.update({
   id: '/room/',
   path: '/room/',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppRoomRoomIdRoute = AppRoomRoomIdImport.update({
+  id: '/room/$roomId',
+  path: '/room/$roomId',
   getParentRoute: () => AppRoute,
 } as any)
 
@@ -93,6 +100,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorizeSignUpImport
       parentRoute: typeof AuthorizeImport
     }
+    '/_app/room/$roomId': {
+      id: '/_app/room/$roomId'
+      path: '/room/$roomId'
+      fullPath: '/room/$roomId'
+      preLoaderRoute: typeof AppRoomRoomIdImport
+      parentRoute: typeof AppImport
+    }
     '/_app/room/': {
       id: '/_app/room/'
       path: '/room'
@@ -106,10 +120,12 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AppRouteChildren {
+  AppRoomRoomIdRoute: typeof AppRoomRoomIdRoute
   AppRoomIndexRoute: typeof AppRoomIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppRoomRoomIdRoute: AppRoomRoomIdRoute,
   AppRoomIndexRoute: AppRoomIndexRoute,
 }
 
@@ -136,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof AuthorizeForgotPasswordRoute
   '/sign-in': typeof AuthorizeSignInRoute
   '/sign-up': typeof AuthorizeSignUpRoute
+  '/room/$roomId': typeof AppRoomRoomIdRoute
   '/room': typeof AppRoomIndexRoute
 }
 
@@ -144,6 +161,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof AuthorizeForgotPasswordRoute
   '/sign-in': typeof AuthorizeSignInRoute
   '/sign-up': typeof AuthorizeSignUpRoute
+  '/room/$roomId': typeof AppRoomRoomIdRoute
   '/room': typeof AppRoomIndexRoute
 }
 
@@ -154,14 +172,27 @@ export interface FileRoutesById {
   '/_authorize/forgot-password': typeof AuthorizeForgotPasswordRoute
   '/_authorize/sign-in': typeof AuthorizeSignInRoute
   '/_authorize/sign-up': typeof AuthorizeSignUpRoute
+  '/_app/room/$roomId': typeof AppRoomRoomIdRoute
   '/_app/room/': typeof AppRoomIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/forgot-password' | '/sign-in' | '/sign-up' | '/room'
+  fullPaths:
+    | ''
+    | '/forgot-password'
+    | '/sign-in'
+    | '/sign-up'
+    | '/room/$roomId'
+    | '/room'
   fileRoutesByTo: FileRoutesByTo
-  to: '' | '/forgot-password' | '/sign-in' | '/sign-up' | '/room'
+  to:
+    | ''
+    | '/forgot-password'
+    | '/sign-in'
+    | '/sign-up'
+    | '/room/$roomId'
+    | '/room'
   id:
     | '__root__'
     | '/_app'
@@ -169,6 +200,7 @@ export interface FileRouteTypes {
     | '/_authorize/forgot-password'
     | '/_authorize/sign-in'
     | '/_authorize/sign-up'
+    | '/_app/room/$roomId'
     | '/_app/room/'
   fileRoutesById: FileRoutesById
 }
@@ -200,6 +232,7 @@ export const routeTree = rootRoute
     "/_app": {
       "filePath": "_app.tsx",
       "children": [
+        "/_app/room/$roomId",
         "/_app/room/"
       ]
     },
@@ -222,6 +255,10 @@ export const routeTree = rootRoute
     "/_authorize/sign-up": {
       "filePath": "_authorize/sign-up.tsx",
       "parent": "/_authorize"
+    },
+    "/_app/room/$roomId": {
+      "filePath": "_app/room/$roomId.tsx",
+      "parent": "/_app"
     },
     "/_app/room/": {
       "filePath": "_app/room/index.tsx",
